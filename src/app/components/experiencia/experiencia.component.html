@@ -1,0 +1,197 @@
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <h1>Experiencia</h1>
+        </div>
+        <div class="col-1">
+            <button class="btn btn-secondary" *ngIf="isLogged"><i class="bi bi-plus-square" (click)="modal.open(nuevo)"></i></button>
+        </div>
+        
+    </div>
+    <br>
+        <div class="row"  *ngFor = "let exp of experiencia">
+            <div class="col-1">
+                <div id="contenedor">
+                    <img src="https://backendmili.herokuapp.com/photos/{{exp.img}}" id="logo">
+                </div>
+            </div>
+            <div class="col-3">
+                <h4>{{exp.empleado}}</h4>
+                <h5>{{exp.empresa}}</h5>
+                <h6>{{exp.periodo}}</h6>
+                <h6>{{exp.descripcion}}</h6>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-secondary" *ngIf="isLogged"
+                (click)="imprimirIndice(exp.id, 1); modal.open(editar)"><i class="bi bi-pencil-square"></i></button>
+                <br/><br/>
+                <button class="btn btn-secondary" *ngIf="isLogged"
+                (click)="imprimirIndice(exp.id, 1); modal.open(eliminar)"><i class="bi bi-trash-fill"></i></button>
+            </div>
+            <hr>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-2">
+                <h1>Educacion</h1>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-secondary" *ngIf="isLogged"><i class="bi bi-plus-square" (click)="modal.open(nuevoEdu)"></i></button>
+            </div>
+            
+        </div>
+        <br>
+            <div class="row"  *ngFor = "let edu of educacion">
+                <div class="col-1">
+                    <div id="contenedor">
+                        <img src="https://backendmili.herokuapp.com/photos/{{edu.img}}" id="logo">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <h4>{{edu.titulo}}</h4>
+                    <h5>{{edu.institucion}}</h5>
+                    <h6>{{edu.periodo}}</h6>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-secondary" *ngIf="isLogged"
+                    (click)="imprimirIndice(edu.id, 2); modal.open(editarEdu)"><i class="bi bi-pencil-square"></i></button>
+                    <br/><br/>
+                    <button class="btn btn-secondary" *ngIf="isLogged"
+                    (click)="imprimirIndice(edu.id, 2); modal.open(eliminarEdu)"><i class="bi bi-trash-fill"></i></button>
+                </div>
+                <hr>
+            </div>
+</div>
+
+<ng-template #editar let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Editar experiencia</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="experiencia[indice].empleado" placeholder="Nombre del puesto de trabajo" class="form-control" name="empleado" required>
+        <br>
+        <input type="text"  [(ngModel)]="experiencia[indice].empresa" placeholder="Nombre de la empresa" class="form-control" name="empresa" required>
+        <br>
+        <input type="text" [(ngModel)]="experiencia[indice].descripcion" placeholder="Descripción del puesto de trabajo" class="form-control" name="descripcion" required>
+        <br>
+        <input type="text" [(ngModel)]="experiencia[indice].periodo" placeholder="Periodo de trabajo" class="form-control" name="periodo" required>
+        <br>
+        <input type="file" name="imagen" required class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onUpdate(1)" (click)="modal.close()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #nuevo let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Nueva experiencia</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="empleado" placeholder="Nombre del puesto de trabajo" class="form-control" id="empleado" name="empleado" required>
+        <br>
+        <input type="text" [(ngModel)]="empresa" placeholder="Nombre de la empresa" class="form-control" id="empresa" name="empresa" required>
+        <br>
+        <input type="text" [(ngModel)]="descripcion" placeholder="Descripción del puesto de trabajo" class="form-control" id="descripcion" name="descripcion" required>
+        <br>
+        <input type="text" [(ngModel)]="periodo" placeholder="Periodo de trabajo" class="form-control" id="periodo" name="periodo" required>
+        <br>
+        <input type="file" name="imagen" required class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="create(1)" (click)="modal.close()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #eliminar let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminar experiencia</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <h5>¿Estás seguro de eliminar la experiencia de {{experiencia[indice].empleado}}?</h5>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="delete(1)" (click)="modal.close()">Aceptar</button>
+        <button class="btn btn-secondary" (click)="modal.dismiss" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>
+
+<ng-template #editarEdu let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Editar educación</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="educacion[indice].titulo" placeholder="Nombre del título" class="form-control" name="titulo" required>
+        <br>
+        <input type="text"  [(ngModel)]="educacion[indice].institucion" placeholder="Nombre de la institución" class="form-control" name="institucion" required>
+        <br>
+        <input type="text" [(ngModel)]="educacion[indice].periodo" placeholder="Periodo" class="form-control" name="periodoEdu" required>
+        <br>
+        <input type="file" name="imagen" required class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onUpdate(2)" (click)="modal.close()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #nuevoEdu let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Nueva experiencia</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="titulo" placeholder="Título" class="form-control" id="empleado" name="titulo" required>
+        <br>
+        <input type="text" [(ngModel)]="institucion" placeholder="Institución educativa" class="form-control" id="empresa" name="institucion" required>
+        <br>
+        <input type="text" [(ngModel)]="periodoEdu" placeholder="Periodo" class="form-control" id="periodo" name="periodoEdu" required>
+        <br>
+        <input type="file" name="imagen" required class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="create(2)" (click)="modal.close()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #eliminarEdu let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminar educación</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <h5>¿Estás seguro de eliminar el título de de {{educacion[indice].titulo}}?</h5>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="delete(2)" (click)="modal.close()">Aceptar</button>
+        <button class="btn btn-secondary" (click)="modal.dismiss" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>

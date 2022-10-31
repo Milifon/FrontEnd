@@ -1,0 +1,7 @@
+.container-fluid{
+    width: auto;
+    overflow: hidden;
+    border-radius: 15px;
+    border: rgb(148, 148, 148) 1px solid;
+    margin: 0px 10px 0px 10px;
+}

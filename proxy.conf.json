@@ -1,0 +1,32 @@
+{
+  "/personas": {
+    "target": "https://backendmili.herokuapp.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/experiencia": {
+    "target": "https://backendmili.herokuapp.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/educacion": {
+    "target": "https://backendmili.herokuapp.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/skill": {
+    "target": "https://backendmili.herokuapp.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/proyecto": {
+    "target": "https://backendmili.herokuapp.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

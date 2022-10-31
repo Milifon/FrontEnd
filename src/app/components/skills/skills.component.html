@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col-4">
+            <h1>Hard & Soft Skills</h1>
+        </div>
+        <div class="col-1">
+            <button class="btn btn-secondary" *ngIf="isLogged"><i class="bi bi-plus-square" (click)="modal.open(nuevo)"></i></button>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-4" *ngFor = "let habilidad of skill">
+            <div class="row">
+                <div class="col-10">
+                    <h5> {{habilidad.nombre}} </h5>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-secondary" *ngIf="isLogged"
+                    (click)="imprimirIndice(habilidad.id); modal.open(editar)"><i class="bi bi-pencil-square"></i></button>
+                    <br/><br/>
+                    <button class="btn btn-secondary" *ngIf="isLogged"
+                    (click)="imprimirIndice(habilidad.id); modal.open(eliminar)"><i class="bi bi-trash-fill"></i></button>
+                </div>
+            </div>
+                    
+            <div class="row">
+                <circle-progress
+                [percent]= habilidad.porcentaje
+                title="{{habilidad.porcentaje}}" 
+                [radius]=100
+                [titleFontSize]="'50px'" 
+                [unitsFontSize]="'50px'" 
+                [showSubtitle]="false" 
+                [outerStrokeWidth]="16"
+                [innerStrokeWidth]="8" 
+                [outerStrokeColor]="'#78C000'" 
+                [innerStrokeColor]="'#C7E596'" 
+                [animation]="true"
+                [animationDuration]="1000"></circle-progress>
+            </div>
+            <hr>
+        </div>
+        
+    </div>
+</div>
+
+<ng-template #editar let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Editar habilidades</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="skill[indice].nombre" placeholder="Nombre de la habilidad" class="form-control" name="nombre" required>
+        <br>
+        <input type="number"  [(ngModel)]="skill[indice].porcentaje" placeholder="Porcentaje de conocimiento" class="form-control" name="porcentaje" required>
+        <br>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onUpdate()" (click)="modal.close()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #nuevo let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Nueva habilidad</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="nombre" placeholder="Nombre de la habilidad" class="form-control" id="nombre" name="nombre" required>
+        <br>
+        <input type="number" [(ngModel)]="porcentaje" placeholder="Porcentaje de conocimiento" class="form-control" id="porcentaje" name="porcentaje" required>
+        <br>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="create()" (click)="modal.close()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #eliminar let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminar habilidad</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <h5>¿Estás seguro de eliminar la habilidad de {{skill[indice].nombre}}?</h5>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="delete()" (click)="modal.close()">Aceptar</button>
+        <button class="btn btn-secondary" (click)="modal.dismiss" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>

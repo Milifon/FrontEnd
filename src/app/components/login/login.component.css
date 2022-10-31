@@ -1,0 +1,9 @@
+.container-fluid {
+    /* fallback for old browsers */
+    background-color: #3396FF;
+    }
+
+    #logoAP {
+        width: auto;
+        height: auto;
+    }

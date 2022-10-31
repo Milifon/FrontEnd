@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <h1>Proyectos</h1>
+        </div>
+        <div class="col-1">
+            <button class="btn btn-secondary" *ngIf="isLogged"><i class="bi bi-plus-square" (click)="modal.open(nuevo)"></i></button>
+        </div>
+        
+    </div>
+    <div class="row" *ngFor = "let pro of proy">
+        <div class="col-4">
+            <h4>{{pro.nombre}}</h4>
+            <h5>{{pro.descripcion}}</h5>
+            <h6>{{pro.fecha}}</h6>
+        </div>
+        <div class="col-1">
+            <a href="{{pro.link}}"><button type="button" class="btn btn-success" id="boton">Link</button></a>
+        </div>
+        <div class="col-1">
+            <button class="btn btn-secondary" *ngIf="isLogged"
+            (click)="imprimirIndice(pro.id); modal.open(editar)"><i class="bi bi-pencil-square"></i></button>
+            <br/><br/>
+            <button class="btn btn-secondary" *ngIf="isLogged"
+            (click)="imprimirIndice(pro.id); modal.open(eliminar)"><i class="bi bi-trash-fill"></i></button>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<ng-template #editar let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Editar proyecto</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="proy[indice].nombre" placeholder="Nombre del proyecto" class="form-control" id="nombre" name="nombre" required>
+        <br>
+        <input type="text" [(ngModel)]="proy[indice].descripcion" placeholder="Descripción el proyecto" class="form-control" id="descripcion" name="descripcion" required>
+        <br>
+        <input type="text" [(ngModel)]="proy[indice].fecha" placeholder="Fecha del proyecto" class="form-control" id="fecha" name="fecha" required>
+        <br>
+        <input type="text" [(ngModel)]="proy[indice].link" placeholder="Link del proyecto" class="form-control" id="link" name="link" required>
+        <br>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onUpdate()" (click)="modal.close()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #nuevo let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Nuevo proyecto</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="nombre" placeholder="Nombre del proyecto" class="form-control" id="nombre" name="nombre" required>
+        <br>
+        <input type="text" [(ngModel)]="descripcion" placeholder="Descripción el proyecto" class="form-control" id="descripcion" name="descripcion" required>
+        <br>
+        <input type="text" [(ngModel)]="fecha" placeholder="Fecha del proyecto" class="form-control" id="fecha" name="fecha" required>
+        <br>
+        <input type="text" [(ngModel)]="link" placeholder="Link del proyecto" class="form-control" id="link" name="link" required>
+        <br>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="create()" (click)="modal.close()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #eliminar let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminar proyecto</h4>
+        <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <h5>¿Estás seguro de eliminar el proyecto de {{proy[indice].nombre}}?</h5>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="delete()" (click)="modal.close()">Aceptar</button>
+        <button class="btn btn-secondary" (click)="modal.dismiss" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>

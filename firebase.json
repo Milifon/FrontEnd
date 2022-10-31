@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/argentinaprograma",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

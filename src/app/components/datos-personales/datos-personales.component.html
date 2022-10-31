@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <img src="../../../assets/banner.jfif" id="banner">
+    <div id="contenedor">
+        <img src="https://backendmili.herokuapp.com/photos/{{persona.img}}" id="perfil">
+    </div>
+    <div class="row" id="nombre">
+        <div class="col-3">
+            <h1>{{persona.nombre}}</h1>
+            <h5>{{persona.puesto}}</h5>
+        </div>
+        <div class="col-1">
+            <button class="btn btn-secondary" *ngIf="isLogged"
+            (click)="modal.open(contenido)"><i class="bi bi-pencil-square"></i></button>
+        </div>
+        <div class="col-8">
+            <p>{{persona.descripcion}}</p>
+        </div>
+    </div>
+</div>
+
+    <ng-template #contenido let-modal>
+
+        <div class="modal-header">
+            <h4 class="modal-title">Datos personales</h4>
+            <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <!--<form (ngSubmit)="onUpdate(persona.id)" novalidate #f="ngForm">-->
+
+        <div class="modal-body">
+             <!--[(ngModel)]="persona.nombre"-->
+            <input type="text" [(ngModel)]="persona.nombre" placeholder="Nombre completo" class="form-control" name="nombre" required>
+            <br>
+            <input type="text"  [(ngModel)]="persona.puesto" placeholder="Puesto de trabajo" class="form-control" name="puesto" required>
+            <br>
+            <input type="text" [(ngModel)]="persona.descripcion" placeholder="Descripción" class="form-control" name="descripcion" required>
+            <br>
+            <input type="file" name="imagen" required class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="enviarFormulario()" (click)="modal.close()">OK</button>
+        </div>
+        
+   <!-- </form>-->
+    </ng-template>
